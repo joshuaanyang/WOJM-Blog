@@ -14,13 +14,11 @@ import bleach
 import os
 import smtplib
 
-
 app = Flask(__name__)
 secret_key = os.environ.get("SECRET_KEY")
 app.config['SECRET_KEY'] = secret_key
 ckeditor = CKEditor(app)
 Bootstrap(app)
-
 
 my_email = os.environ.get("EMAIL")
 p = os.environ.get("PASSWORD")
@@ -139,7 +137,7 @@ class Comment(db.Model):
     text = db.Column(db.Text)
 
 
-db.create_all()
+# db.create_all()
 
 
 @app.route('/')
@@ -285,6 +283,7 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
-    # app.run(host='0.0.0.0', port=5000)
+    # port = int(os.environ.get('PORT', 5000))
+    # app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=5000)
+    # host = '0.0.0.0', port = 5000

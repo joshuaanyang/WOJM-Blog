@@ -16,14 +16,14 @@ import smtplib
 
 
 app = Flask(__name__)
-secret_key = os.environ["SECRET_KEY"]
+secret_key = os.environ.get("SECRET_KEY")
 app.config['SECRET_KEY'] = secret_key
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
 
-my_email = os.environ["EMAIL"]
-p = os.environ["PASSWORD"]
+my_email = os.environ.get("EMAIL")
+p = os.environ.get("PASSWORD")
 
 
 def send_email(name, phone, email, message):
@@ -35,7 +35,7 @@ def send_email(name, phone, email, message):
 
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 

@@ -35,7 +35,7 @@ def send_email(name, phone, email, message):
 
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -139,7 +139,7 @@ class Comment(db.Model):
     text = db.Column(db.Text)
 
 
-# db.create_all()
+db.create_all()
 
 
 @app.route('/')

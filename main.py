@@ -45,7 +45,7 @@ class MySQLAlchemy(SQLAlchemy):
     ForeignKey: Callable
 
 
-# db = MySQLAlchemy(app)
+db = MySQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)

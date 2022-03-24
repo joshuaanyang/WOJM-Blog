@@ -227,7 +227,7 @@ def contact():
     form = ContactForm()
     if form.validate_on_submit():
         send_email(form.name.data, form.phone.data, form.email.data, form.message.data)
-        return redirect(url_for('show_post'))
+        return redirect(url_for('get_all_posts'))
     return render_template("contact.html", current_user=current_user, form=form)
 
 

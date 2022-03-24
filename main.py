@@ -11,9 +11,11 @@ from flask_gravatar import Gravatar
 from typing import Callable
 from forms import RegisterForm, CreatePostForm, LoginForm, CommentForm
 import bleach
+import os
 
+secret_key = os.environ["SECRET_KEY"]
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = secret_key
 ckeditor = CKEditor(app)
 Bootstrap(app)
 

@@ -9,9 +9,10 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_gravatar import Gravatar
 from typing import Callable
-from forms import RegisterForm, CreatePostForm, LoginForm, CommentForm
+from forms import RegisterForm, CreatePostForm, LoginForm, CommentForm, ContactForm
 import bleach
 import os
+import smtplib
 
 
 app = Flask(__name__)
@@ -19,6 +20,18 @@ secret_key = os.environ["SECRET_KEY"]
 app.config['SECRET_KEY'] = secret_key
 ckeditor = CKEditor(app)
 Bootstrap(app)
+
+
+my_email = os.environ["EMAIL"]
+p = os.environ["PASSWORD"]
+
+
+def send_email(name, phone, email, message):
+    send_message = f"Subject:Blog Message from {name}: A reader\n\nName:{name}\nEmail:{email}\nPhone:{phone}\nMessage:{message}"
+    with smtplib.SMTP("smtp.gmail.com", 587) as connection:
+        connection.starttls()
+        connection.login(my_email, p)
+        connection.sendmail(msg=send_message, from_addr=my_email, to_addrs=my_email)
 
 
 ##CONNECT TO DB
@@ -211,9 +224,13 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("contact.html", current_user=current_user)
+    form = ContactForm()
+    if form.validate_on_submit():
+        send_email(form.name.data, form.phone.data, form.email.data, form.message.data)
+        return redirect(url_for('show_post'))
+    return render_template("contact.html", current_user=current_user, form=form)
 
 
 @app.route("/new-post", methods=["GET", "POST"])

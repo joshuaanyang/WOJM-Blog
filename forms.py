@@ -29,3 +29,11 @@ class LoginForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = StringField("Comment")
     submit = SubmitField("Submit")
+
+
+class ContactForm(FlaskForm):
+    name = StringField("Name")
+    email = StringField("Email Address")
+    phone = StringField("Phone Number")
+    message = StringField("Message")
+    submit = SubmitField("Send")

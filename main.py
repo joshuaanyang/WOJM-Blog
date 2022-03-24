@@ -13,11 +13,13 @@ from forms import RegisterForm, CreatePostForm, LoginForm, CommentForm
 import bleach
 import os
 
-secret_key = os.environ["SECRET_KEY"]
+
 app = Flask(__name__)
+secret_key = os.environ["SECRET_KEY"]
 app.config['SECRET_KEY'] = secret_key
 ckeditor = CKEditor(app)
 Bootstrap(app)
+
 
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
